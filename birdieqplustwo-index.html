@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BirdieQPlusTwo | Handmade Book & Kindle Sleeves</title>
+    <meta name="description" content="Handmade padded book sleeves, Kindle sleeves, and iPad covers. Crafted with love in San Antonio, TX.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --linen: #F7F3EE;
+            --parchment: #EDE7DF;
+            --espresso: #3B2F2F;
+            --warm-brown: #5C4A3A;
+            --terra: #C08B6E;
+            --dusty-sage: #9CAF91;
+            --muted-gold: #C4A265;
+            --blush: #D4AFA0;
+            --cream: #FBF9F6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background-color: var(--linen);
+            color: var(--espresso);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Warm textured background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235C4A3A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--cream);
+            border-radius: 24px;
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            box-shadow:
+                0 1px 3px rgba(59, 47, 47, 0.04),
+                0 8px 32px rgba(59, 47, 47, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner {
+            width: 100%;
+            display: block;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .card-body {
+            padding: clamp(2rem, 5vw, 3rem);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .anim { animation: fadeUp 0.9s ease-out both; }
+        .d1 { animation-delay: 0.15s; }
+        .d2 { animation-delay: 0.3s; }
+        .d3 { animation-delay: 0.45s; }
+        .d4 { animation-delay: 0.6s; }
+        .d5 { animation-delay: 0.75s; }
+        .d6 { animation-delay: 0.9s; }
+        .d7 { animation-delay: 1.05s; }
+
+        /* Bird icon */
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        /* Brand name */
+        .brand {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 500;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            color: var(--espresso);
+            margin-bottom: 0.3rem;
+        }
+
+        .brand-accent {
+            color: var(--terra);
+        }
+
+        /* Tagline */
+        .tagline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+            color: var(--terra);
+            letter-spacing: 0.02em;
+            margin-bottom: 1.8rem;
+        }
+
+        /* Divider */
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, var(--blush), var(--terra), var(--blush));
+            margin: 0 auto 1.8rem;
+            border-radius: 1px;
+        }
+
+        /* Description */
+        .desc {
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            font-weight: 300;
+            color: var(--warm-brown);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Category pills */
+        .pills {
+            display: flex;
+            gap: 0.6rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.2rem;
+        }
+
+        .pill {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--warm-brown);
+            background: var(--parchment);
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            border: none;
+        }
+
+        /* CTA Etsy button */
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--cream);
+            background: var(--espresso);
+            text-decoration: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            transition: all 0.35s ease;
+            margin-bottom: 2rem;
+        }
+
+        .cta:hover {
+            background: var(--terra);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(192, 139, 110, 0.3);
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .cta-alt {
+            background: transparent;
+            color: var(--espresso);
+            border: 1.5px solid var(--espresso);
+        }
+
+        .cta-alt:hover {
+            background: var(--espresso);
+            color: var(--cream);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 47, 47, 0.2);
+        }
+
+        .cta svg {
+            width: 16px; height: 16px;
+            fill: currentColor;
+        }
+
+        /* Social row */
+        .socials {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--parchment);
+            color: var(--warm-brown);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
+            border-color: var(--terra);
+            color: var(--terra);
+            background: rgba(192, 139, 110, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .socials a svg {
+            width: 18px; height: 18px;
+            fill: currentColor;
+        }
+
+        /* Footer note */
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: var(--blush);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* Outside-card decorative elements */
+        .deco-top, .deco-bottom {
+            font-size: 0.65rem;
+            letter-spacing: 0.5em;
+            color: var(--blush);
+            opacity: 0.4;
+            text-align: center;
+        }
+        .deco-top { margin-bottom: 1.5rem; }
+        .deco-bottom { margin-top: 1.5rem; }
+
+        @media (max-width: 480px) {
+            .card { padding: 2rem 1.5rem; }
+            .pills { gap: 0.4rem; }
+            .pill { padding: 0.35rem 0.8rem; font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="deco-top anim d1">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+        <div class="card">
+            <div class="banner anim d1">
+                <img src="banner.png" alt="Birdie Q Plus Two - Protect Your Pages, Cherish Your Chapters, Wrapping Your Reads in Love">
+            </div>
+
+            <div class="card-body">
+
+            <p class="tagline anim d3">Handmade with love in San Antonio, TX</p>
+
+            <div class="divider anim d3"></div>
+
+            <p class="desc anim d4">
+                Padded sleeves crafted to protect your favorite reads and devices.
+                Each one is a labor of love — meticulously handmade, beautifully finished,
+                and designed to keep your stories safe.
+            </p>
+
+            <div class="pills anim d5">
+                <span class="pill">Book Sleeves</span>
+                <span class="pill">Kindle Sleeves</span>
+                <span class="pill">iPad Covers</span>
+                <span class="pill">E-Readers</span>
+            </div>
+
+            <div class="cta-row anim d6">
+                <a href="https://www.etsy.com/shop/BirdieQPlusTwo" target="_blank" rel="noopener" class="cta">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3.5 6h17M16 10a4 4 0 01-8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Shop on Etsy
+                </a>
+                <a href="https://www.amazon.com/stores/BirdieQplusTwo/page/0D5BD2D6-FC9C-41AD-A394-B4D9B7EBAD7B" target="_blank" rel="noopener" class="cta cta-alt">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3.5 6h17M16 10a4 4 0 01-8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Shop on Amazon
+                </a>
+            </div>
+
+            <div class="socials anim d7">
+                <a href="https://www.instagram.com/birdieqplustwo/" target="_blank" rel="noopener" title="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@birdieqplustwo.og" target="_blank" rel="noopener" title="TikTok">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.01-.3z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/hollysavagephotography/" target="_blank" rel="noopener" title="Facebook">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+
+            <p class="footer-note anim d7">Handcrafted &nbsp;·&nbsp; San Antonio, TX</p>
+            </div>
+        </div>
+
+        <div class="deco-bottom anim d7">✦ &nbsp; ✦ &nbsp; ✦</div>
+    </div>
+</body>
+</html>
